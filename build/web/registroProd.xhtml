@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+        <h:head>
+            <style type="text/css">
+                .label {
+                    width: 20%;
+                    padding: 4px;
+                }
+
+                .value {
+                    width: 80%;
+                    padding: 4px;
+                }
+
+                .grid {
+                    width: 100%;
+                }
+
+                .error {
+                    color: red;
+                }
+
+                .outputLabel {
+                    font-weight: bold;
+                }
+
+                .grid {
+                    width: 33%;
+                    padding: 4px;
+                }
+                
+            </style>
+        </h:head>
+        <h:body>
+            <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+                <ui:define name="content">
+
+                      <h:form enctype="multipart/form-data">
+                    <p:panel >
+                        
+                         <h5 style="margin-top:0">Registro Producto</h5>   
+                        <h:panelGrid columns="2" style="width: 500px" >
+                            
+                            <p:outputLabel value="Nombre" style=" font-weight:bold "/>      
+                            <p:inputText  value ="#{regPro.getsNombre()}" alt="Nombre" required="true" requiredMessage="Nombre de producto"
+                                         style="width: 300px" placeholder="Nombre de producto"/>
+                            <p:outputLabel value="Unidad" style=" font-weight:bold "/>      
+                            <p:inputText  value ="#{regPro.getsUnidad()}" alt="unidad" required="true" requiredMessage="unidad"
+                                         style="width: 300px" placeholder="Unidad"/>
+                            
+                             <p:outputLabel value="Cantidad" style=" font-weight:bold "/>      
+                            <p:inputText  value ="#{regPro.getsCantidad()}" alt="Nombre del producto" required="true" requiredMessage="Nombre del producto"
+                                         style="width: 300px" placeholder="Cantidad"/>
+                            <p:outputLabel value="Precio" style=" font-weight:bold "/>     
+                            <p:inputText  value ="#{regPro.getsPrecio()}" alt="precio" required="true" requiredMessage="precio"
+                                         style="width: 300px" placeholder="Precio"/>
+                            <div class="card">
+                                <h:form>
+                              <p:growl id="message" showDetail="true"/>
+
+                              <p:commandButton value="Registrar" action="#{confirmView.confirm()}" update="message" styleClass="p-mr-2" icon="pi pi-check">
+            <p:confirm header="Confirmación" message="¿Desea registrar este producto?" icon="pi pi-exclamation-triangle"/>
+        </p:commandButton>
+
+        
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+                                </h:form>
+                            </div>
+                        </h:panelGrid>
+                         </p:panel>
+                         
+                         
+                          <p:panel>
+                       <h5 style="margin-top:0">Stock de productos</h5>   
+                            <h:panelGrid style="width:1000px">
+                                <p:dataTable var="product" value="#{dtContextMenuView.products}" widgetVar="customersTable" emptyMessage="" selection="#{dtContextMenuView.selectedProduct}">
+
+           
+
+                                    <p:column headerText="Nombre" sortBy="#{product.name}" filterBy="#{product.name}">
+                                        <h:outputText value="#{product.name}" />
+                                    </p:column>
+
+                                    <p:column headerText="Unidad" sortBy="#{product.category}" >
+                                        <span class="flag flag-#{product.category}" style="width: 30px; height: 20px" />
+                                        <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{product.category}" />
+                                    </p:column>
+
+       
+
+                                    <p:column headerText="Cantidad" sortBy="#{product.quantity}" >
+                                        <h:outputText value="#{product.quantity}" />
+                                    </p:column>
+
+            
+
+            
+
+        </p:dataTable>
+                            </h:panelGrid>
+    
+                        
+                            
+                    </p:panel>
+                </h:form>
+                    
+                    
+                </ui:define>
+
+            </ui:composition>
+
+
+
+
+
+
+        </h:body>
+    </f:view>
+
+</html>

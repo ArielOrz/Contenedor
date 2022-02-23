@@ -1,0 +1,132 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+        <h:head>
+            <script type="text/javascript">
+    PrimeFaces.locales['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Sólo hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        millisecondText: 'Milisegundo',
+        currentText: 'Fecha actual',
+        ampm: false,
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        allDayText: 'Todo el día',
+        today: 'Hoy',
+        clear: 'Claro'
+    };
+    
+</script>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function dateTemplateFunc(date) {
+        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
+    }
+
+    //]]>
+</script>
+
+<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+</style>
+            <style type="text/css">
+                .label {
+                    width: 20%;
+                    padding: 4px;
+                }
+
+                .value {
+                    width: 80%;
+                    padding: 4px;
+                }
+
+                .grid {
+                    width: 100%;
+                }
+
+                .error {
+                    color: red;
+                }
+
+                .outputLabel {
+                    font-weight: bold;
+                }
+
+                .grid {
+                    width: 33%;
+                    padding: 4px;
+                }
+                
+            </style>
+        </h:head>
+        <h:body>
+            <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+                <ui:define name="content">
+
+                      <h:form enctype="multipart/form-data">
+                    <p:panel >
+                        
+                         <h5 style="margin-top:0">Salida Insumo</h5>   
+                        <h:panelGrid columns="2" style="width: 500px" >
+                            
+                          
+                            <p:outputLabel value="Descripcion" style=" font-weight:bold "/>      
+                            <p:inputText  value ="#{oRegMed.getsNombre()}" alt="descripcion" required="true" requiredMessage="descripcion"
+                                         style="width: 300px" placeholder="Descripcion"/>
+                            <p:outputLabel value="Cantidad" style=" font-weight:bold "/>      
+                            <p:inputText  value ="#{oRegMed.getsNombre()}" alt="cantidad" required="true" requiredMessage="cantidad"
+                                         style="width: 300px" placeholder="Cantidad"/>
+                            
+                            <p:outputLabel value="Observaciones" style=" font-weight:bold "/>     
+                            <p:inputText  value ="#{oRegMed.getsGramaje()}" alt="observaciones" required="true" requiredMessage="observaciones"
+                                         style="width: 300px" placeholder="Observaciones"/>
+                            
+                              
+                   
+                
+                 <p:outputLabel for="button" value="Fecha" style=" font-weight:bold " />
+                <p:datePicker id="button" value="" showIcon="true"/>
+           
+                        </h:panelGrid>
+                        
+                        <p:commandButton value="Guardar" action="#{oRegMed.registrar()}"/>
+                            
+                    </p:panel>
+                </h:form>
+                    
+                    
+                </ui:define>
+
+            </ui:composition>
+
+
+        </h:body>
+    </f:view>
+
+</html>

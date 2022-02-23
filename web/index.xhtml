@@ -1,0 +1,123 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+        <h:head>
+            <style type="text/css">
+                .label {
+                    width: 20%;
+                    padding: 4px;
+                }
+
+                .value {
+                    width: 80%;
+                    padding: 4px;
+                }
+
+                .grid {
+                    width: 100%;
+                }
+
+                .error {
+                    color: red;
+                }
+
+                .outputLabel {
+                    font-weight: bold;
+                }
+
+                .grid {
+                    width: 33%;
+                    padding: 4px;
+                }
+                
+            </style>
+        </h:head>
+        <h:body>
+            <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+                <ui:define name="content">
+
+        
+    
+    <div >
+    <h:form >
+        <p:dataTable id="products" var="product" value="#{dtContextMenuView.products}" rowKey="#{product.id}"
+                     selection="#{dtContextMenuView.selectedProduct}" selectionMode="single">
+            <f:facet name="header">
+               Stock de productos
+            </f:facet>
+
+            <p:column headerText="Código">
+                <h:outputText value="#{product.code}" />
+            </p:column>
+            <p:column field="name" headerText="Nombre">
+                <h:outputText value="#{product.name}" />
+            </p:column>
+            <p:column headerText="Unidad">
+                <h:outputText value="#{product.category}" />
+            </p:column>
+            <p:column headerText="Cantidad">
+                <h:outputText value="#{product.quantity}" />
+            </p:column>
+        </p:dataTable>
+
+        <p:contextMenu for="products">
+            <p:menuitem value="View" update="productDetail" icon="pi pi-search"
+                        oncomplete="PF('productDialog').show()"/>
+            <p:menuitem value="Delete" update="products" icon="pi pi-times"
+                        action="#{dtContextMenuView.deleteProduct}"/>
+        </p:contextMenu>
+
+        <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade"
+                  hideEffect="fade" resizable="false">
+            <p:outputPanel id="productDetail" style="text-align:center;">
+                <p:column rendered="#{not empty dtContextMenuView.selectedProduct}">
+                    <div class="product">
+                        <div class="product-grid-item border-0" style="margin-bottom: 0">
+                            <div class="product-grid-item-top">
+                                <div>
+                                    <i class="pi pi-tag product-category-icon"/>
+                                    <span class="product-category">#{dtContextMenuView.selectedProduct.category}</span>
+                                </div>
+                               
+                            </div>
+                            <div class="product-grid-item-content">
+                                <p:graphicImage
+                                        name="demo/images/product/#{dtContextMenuView.selectedProduct.image}"/>
+                                <div class="product-name">#{dtContextMenuView.selectedProduct.name}</div>
+                                <div class="product-description">#{dtContextMenuView.selectedProduct.description}</div>
+                                <p:rating readonly="true" value="#{dtContextMenuView.selectedProduct.rating}"/>
+                            </div>
+                            <div class="product-grid-item-bottom">
+                                <h:outputText value="#{dtContextMenuView.selectedProduct.price}"
+                                              styleClass="product-price">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                </h:outputText>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </p:column>
+            </p:outputPanel>
+        </p:dialog>
+    </h:form>
+    </div>
+    
+   
+                </ui:define>
+
+            </ui:composition>
+
+
+
+
+
+
+        </h:body>
+    </f:view>
+
+</html>
